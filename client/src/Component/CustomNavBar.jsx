@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink as ReactLink} from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink as ReactLink } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -11,12 +11,11 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  NavbarText,
+  DropdownItem
 } from "reactstrap";
 
 const CustomNavBar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
       <Navbar color="dark" dark expand="md" fixed="" className="px-5">
@@ -26,6 +25,18 @@ const CustomNavBar = () => {
         <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
+            <NavItem>
+              <NavLink tag={ReactLink} to="/explore">
+                Explore
+              </NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={ReactLink} to="/check-in">
+                Check-In
+              </NavLink>
+            </NavItem>
+
             <NavItem>
               <NavLink tag={ReactLink} to="/about">
                 About
@@ -39,10 +50,10 @@ const CustomNavBar = () => {
             </NavItem>
 
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
+              <DropdownToggle nav caret color="dark">
                 More
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu end dark>
                 <DropdownItem>Option 1</DropdownItem>
                 <DropdownItem>Option 2</DropdownItem>
                 <DropdownItem divider />
@@ -50,11 +61,26 @@ const CustomNavBar = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
+
+          <Nav navbar>
+            <NavItem>
+              <NavLink tag={ReactLink} to="/login">
+                {" "}
+                Login
+              </NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink tag={ReactLink} to="/register">
+                {" "}
+               Register
+              </NavLink>
+            </NavItem>
+          </Nav>
         </Collapse>
       </Navbar>
     </div>
   );
-}
+};
 
-export default CustomNavBar
+export default CustomNavBar;
