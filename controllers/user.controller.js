@@ -20,19 +20,19 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const user = User.findOne({ username: req.body.username });
-
-    if (!user) return res.status(400).send("No user with this username");
-
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
     const isPasswordCorrect = await bcryptjs.compare(
       req.body.password,
       user.password
     );
-
-    if (!isPasswordCorrect) return res.status(400).send("Incorrect Password");
-
-    const { password, ...otherDetails } = user._doc;
-    return res.status(200).json(otherDetails);
+    if (!isPasswordCorrect){
+      return res.status(401).json("Incorrect Password")
+    }
+    const {password,...others} = user._doc
+    return res.status(200).json(user);
   } catch (error) {
     return res.status(400).json(error);
   }
@@ -63,7 +63,6 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   if (req.body.userId === req.params.id) {
-    s;
     try {
       // const user = await User.findById(req.params.id)
       await User.findByIdAndDelete(req.params.id);
